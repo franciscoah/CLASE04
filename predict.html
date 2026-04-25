@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>IA Predictor</title>
+    <style>
+        body{ font-family: Arial; background: #e9ecef; text-align: center; padding: 50px; }
+        .box{ background: white; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        input{ padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        button{ padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Convertidor de IA (C° a F°)</h2>
+        <form action="/predict" method="post">
+            <input type="number" step="any" name="celsius" placeholder="Ingresa Grados Celsius" required>
+            <button type="submit">Calcular con IA</button>
+        </form>
+        {% if resultado %}
+            <h3 style="color: #007bff; margin-top: 20px;">{{ resultado }}</h3>
+        {% endif %}
+        <br>
+        <a href="/">Cerrar sesión</a>
+    </div>
+</body>
+</html>
