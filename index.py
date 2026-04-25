@@ -45,5 +45,27 @@ def predict():
         return render_template("predict.html", resultado=f"{celsius}°C son aproximadamente {resultado:.2f}°F")
     return render_template("predict.html")
 
+
+from flask import jsonify # Asegúrate de agregar jsonify al import inicial
+
+@app.route("/api/predict", methods=["POST"])
+def api_predict():
+    data = request.get_json() # Flutter enviará un JSON
+    if not data or 'celsius' not in data:
+        return jsonify({"error": "Falta el valor celsius"}), 400
+        
+    celsius = float(data['celsius'])
+    resultado = predict_fahrenheit(celsius) # Tu función que usa el .tflite
+    
+    return jsonify({
+        "celsius": celsius,
+        "fahrenheit": resultado,
+        "mensaje": "Predicción exitosa con IA"
+    })
+
 if __name__ == "__main__":
+    from flask import Flask, render_template, request, jsonify
+    from flask_cors import CORS  # <--- Agrega esto
+    app = Flask(__name__)
+    CORS(app)
     app.run(debug=True)
